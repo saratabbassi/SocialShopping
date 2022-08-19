@@ -1,10 +1,11 @@
 import HomeScreen from "./components/HomeScreen";
 import AddVideoScreen from "./components/AddVideoScreen";
-
+import React from 'react'
 import CameraScreen from "./components/CameraScreen";
-
+import AddProductScreen from "./components/AddProductScreen";
 import { NavigationContainer } from "@react-navigation/native";
 import { createNativeStackNavigator } from "@react-navigation/native-stack";
+
 
 
 
@@ -28,6 +29,11 @@ export default function App() {
          <Stack.Screen 
           name="Camera"
           component={CameraScreen}
+          
+        />
+        <Stack.Screen 
+          name="AddProduct"
+          component={AddProductScreen}
           
         />
          

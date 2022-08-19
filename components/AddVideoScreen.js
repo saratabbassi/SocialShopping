@@ -5,13 +5,6 @@ import { StyleSheet, Button, View, TouchableOpacity, Text, ImageBackground } fro
 
 
 
-import * as ImagePicker from 'expo-image-picker'
-import * as MediaLibrary from 'expo-media-library'
-
-
-
-
-
 
 export default function AddVideoScreen({ navigation }) {
   const image = { uri: "https://drive.google.com/uc?export=view&id=1tsWCCtpQNERCXjcvDPonkmdxhQB47GqU" };

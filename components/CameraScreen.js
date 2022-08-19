@@ -1,10 +1,11 @@
 import React, { useEffect, useState } from 'react'
-import { View, Text, TouchableOpacity, Image } from 'react-native'
+import { View, Text, TouchableOpacity, Image,StyleSheet } from 'react-native'
 import { Camera } from 'expo-camera'
 import { Audio } from 'expo-av'
 import * as ImagePicker from 'expo-image-picker'
 import * as MediaLibrary from 'expo-media-library'
 import * as VideoThumbnails from 'expo-video-thumbnails';
+
 
 import { useIsFocused } from '@react-navigation/core'
 import { Feather } from '@expo/vector-icons'
@@ -13,18 +14,13 @@ import styles from './styles'
 import { useNavigation } from '@react-navigation/native'
 
 
-/**
- * Function that renders a component responsible showing
- * a view with the camera preview, recording videos, controling the camera and
- * letting the user pick a video from the gallery
- * @returns Functional Component
- */
+
 export default function CameraScreen() {
     const [hasCameraPermissions, setHasCameraPermissions] = useState(false)
     const [hasAudioPermissions, setHasAudioPermissions] = useState(false)
     const [hasGalleryPermissions, setHasGalleryPermissions] = useState(false)
 
-    const [galleryItems, setGalleryItems] = useState([])
+  
 
     const [cameraRef, setCameraRef] = useState(null)
     const [cameraType, setCameraType] = useState(Camera.Constants.Type.back)
@@ -58,8 +54,8 @@ export default function CameraScreen() {
                 if (videoRecordPromise) {
                     const data = await videoRecordPromise;
                     const source = data.uri
-                    let sourceThumb = await generateThumbnail(source)
-                    navigation.navigate('savePost', { source, sourceThumb })
+                    /*let sourceThumb = await generateThumbnail(source)*/
+                    navigation.navigate('AddProduct', { source })
                 }
             } catch (error) {
                 console.warn(error)
@@ -81,24 +77,13 @@ export default function CameraScreen() {
             quality: 1
         })
         if (!result.cancelled) {
-            let sourceThumb = await generateThumbnail(result.uri)
-            navigation.navigate('savePost', { source: result.uri, sourceThumb })
+            /*let sourceThumb = await generateThumbnail(result.uri)*/
+            navigation.navigate('AddProduct', {source : result.uri})
+          
         }
     }
 
-    const generateThumbnail = async (source) => {
-        try {
-            const { uri } = await VideoThumbnails.getThumbnailAsync(
-                source,
-                {
-                    time: 5000,
-                }
-            );
-            return uri;
-        } catch (e) {
-            console.warn(e);
-        }
-    };
+   
 
     if (!hasCameraPermissions || !hasAudioPermissions || !hasGalleryPermissions) {
         return (
@@ -152,13 +137,7 @@ export default function CameraScreen() {
                     <TouchableOpacity
                         onPress={() => pickFromGallery()}
                         style={styles.galleryButton}>
-                        {galleryItems[0] == undefined ?
-                            <></>
-                            :
-                            <Image
-                                style={styles.galleryButtonImage}
-                                source={{ uri: galleryItems[0].uri }}
-                            />}
+                        
                     </TouchableOpacity>
                 </View>
             </View>
