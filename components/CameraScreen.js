@@ -3,8 +3,6 @@ import { View, Text, TouchableOpacity, Image,StyleSheet } from 'react-native'
 import { Camera } from 'expo-camera'
 import { Audio } from 'expo-av'
 import * as ImagePicker from 'expo-image-picker'
-import * as MediaLibrary from 'expo-media-library'
-import * as VideoThumbnails from 'expo-video-thumbnails';
 
 
 import { useIsFocused } from '@react-navigation/core'
